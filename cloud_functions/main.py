@@ -2,7 +2,7 @@ import tweepy
 import os
 import requests
 import json
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 # from dotenv import load_dotenv
 
@@ -33,12 +33,13 @@ def post_tweet(request):
             "lang": "ja",
         },
     )
-    dt_now = datetime.now()
+    JST = timezone(timedelta(hours=+9), "JST")
+    dt_now = datetime.now(JST)
     now = dt_now.strftime("%Y/%m/%d %H:%M:%S")
     response_text = json.loads(response.text)
     weather = response_text["weather"][0]["description"]
     temp = response_text["main"]["temp"]
     humidity = response_text["main"]["humidity"]
-    message = f"{now}現在のヤクーツク\n天気: {weather} \n気温: {temp}\n湿度: {humidity}"
+    message = f"{now}現在のヤクーツク\n天気: {weather} \n気温: {temp}℃\n湿度: {humidity}%"
     client.create_tweet(text=message)
     return ""
