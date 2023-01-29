@@ -27,9 +27,4 @@ jobs:
             --entry-point post_tweet \ 
             --runtime python38 \
             --trigger-http \
-            --set-env-vars API_KEY=${{ secrets.API_KEY }} \
-            --set-env-vars API_SECRET=${{ secrets.API_SECRET }} \
-            --set-env-vars BEARER_TOKEN=${{ secrets.BEARER_TOKEN }} \
-            --set-env-vars ACCESS_TOKEN=${{ secrets.ACCESS_TOKEN }} \
-            --set-env-vars ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }} \
-            --set-env-vars WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }}
+
