@@ -22,9 +22,9 @@ jobs:
       - name: Deploy Functions
         run: |
           gcloud functions deploy yakutsk-bot \
-            --source ./cloud_functions \
+            --source=./cloud_functions \
             --region=us-central1 \
-            --entry-point post_tweet \ 
-            --runtime python38 \
+            --entry-point=post_tweet \ 
+            --runtime=python38 \
             --trigger-http \
 
