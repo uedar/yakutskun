@@ -1,6 +1,6 @@
 name: Deploy Cloud Run
 
-on
+on:
   push:
     branches:
       - main
