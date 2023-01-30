@@ -5,6 +5,7 @@ import json
 from datetime import datetime, timedelta, timezone
 
 # from dotenv import load_dotenv
+
 # load_dotenv(verbose=True)
 
 API_KEY = os.environ["API_KEY"]
@@ -36,10 +37,12 @@ def post_tweet(request):
     JST = timezone(timedelta(hours=+9), "YAKT")
     dt_now = datetime.now(JST)
     now = dt_now.strftime("%Y/%m/%d %H:%M")
-    response_text = json.loads(response.text)
-    weather = response_text["weather"][0]["description"]
-    temp = response_text["main"]["temp"]
-    humidity = response_text["main"]["humidity"]
-    message = f"{now} (YAKT) のヤクーツク\n天気: {weather} \n気温: {temp}℃\n湿度: {humidity}%"
-    client.create_tweet(text=message)
-    return ""
+    weather_info = json.loads(response.text)
+    weather = weather_info["weather"][0]["description"]
+    temperature = weather_info["main"]["temp"]
+    humidity = weather_info["main"]["humidity"]
+    message = (
+        f"{now} (YAKT) のヤクーツク\n天気: {weather} \n気温: {temperature}℃\n湿度: {humidity}%"
+    )
+    post_request = client.create_tweet(text=message)
+    return post_request.data
