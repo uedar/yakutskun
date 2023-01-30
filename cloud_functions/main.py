@@ -4,9 +4,9 @@ import requests
 import json
 from datetime import datetime, timedelta, timezone
 
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 
-# load_dotenv(verbose=True)
+load_dotenv(verbose=True)
 API_KEY = os.environ["API_KEY"]
 API_SECRET = os.environ["API_SECRET"]
 BEARER_TOKEN = os.environ["BEARER_TOKEN"]
@@ -33,13 +33,13 @@ def post_tweet(request):
             "lang": "ja",
         },
     )
-    JST = timezone(timedelta(hours=+9), "JST")
+    JST = timezone(timedelta(hours=+9), "YAKT")
     dt_now = datetime.now(JST)
     now = dt_now.strftime("%Y/%m/%d %H:%M")
     response_text = json.loads(response.text)
     weather = response_text["weather"][0]["description"]
     temp = response_text["main"]["temp"]
     humidity = response_text["main"]["humidity"]
-    message = f"{now}(JST) 現在のヤクーツク\n天気: {weather} \n気温: {temp}℃\n湿度: {humidity}%"
+    message = f"{now} (YAKT) のヤクーツク\n天気: {weather} \n気温: {temp}℃\n湿度: {humidity}%"
     client.create_tweet(text=message)
     return ""
