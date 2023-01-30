@@ -35,11 +35,11 @@ def post_tweet(request):
     )
     JST = timezone(timedelta(hours=+9), "JST")
     dt_now = datetime.now(JST)
-    now = dt_now.strftime("%Y/%m/%d %H:%M:%S")
+    now = dt_now.strftime("%Y/%m/%d %H:%M")
     response_text = json.loads(response.text)
     weather = response_text["weather"][0]["description"]
     temp = response_text["main"]["temp"]
     humidity = response_text["main"]["humidity"]
-    message = f"{now}現在のヤクーツク\n天気: {weather} \n気温: {temp}℃\n湿度: {humidity}%"
+    message = f"{now}(JST) 現在のヤクーツク\n天気: {weather} \n気温: {temp}℃\n湿度: {humidity}%"
     client.create_tweet(text=message)
     return ""
