@@ -4,9 +4,9 @@ import requests
 import json
 from datetime import datetime, timedelta, timezone
 
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 
-load_dotenv(verbose=True)
+# load_dotenv(verbose=True)
 
 API_KEY = os.environ["API_KEY"]
 API_SECRET = os.environ["API_SECRET"]
