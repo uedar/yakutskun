@@ -67,7 +67,7 @@ def get_weather_history(day_diff):
     YAKT = timezone(timedelta(hours=+9), "YAKT")
     dt_now = datetime.now(YAKT)
     dt = dt_now + timedelta(day_diff)
-    dt_str = dt.strftime("%Y/%m/%d %H:%M")
+    dt_str = dt.strftime("%Y/%m/%d")
     unix_dt = dt.timestamp()
     response = requests.get(
         "https://api.openweathermap.org/data/3.0/onecall/timemachine",
@@ -81,7 +81,7 @@ def get_weather_history(day_diff):
         },
     )
     weather_json = json.loads(response.text)
-    weather_info = weather_json["data"]
+    weather_info = weather_json["data"][0]
     japanese_weather_list = ["晴れ", "曇り", "雨", "雪"]
     english_weather_list = ["Clear", "Clouds", "Rain", "Snow"]
     weather = weather_info["weather"][0]["main"]
@@ -111,14 +111,14 @@ def get_weather(day_diff):
     YAKT = timezone(timedelta(hours=+9), "YAKT")
     dt_now = datetime.now(YAKT)
     dt = dt_now + timedelta(day_diff)
-    dt_str = dt.strftime("%Y/%m/%d %H:%M")
+    dt_str = dt.strftime("%Y/%m/%d")
     japanese_weather_list = ["晴れ", "曇り", "雨", "雪"]
     english_weather_list = ["Clear", "Clouds", "Rain", "Snow"]
     weather = weather_info["weather"][0]["main"]
     if weather in english_weather_list:
         weather = japanese_weather_list[english_weather_list.index(weather)]
-    temperature = weather_info["temp"]
-    feel_like = weather_info["feels_like"]
+    temperature = weather_info["temp"]["day"]
+    feel_like = weather_info["feels_like"]["day"]
     humidity = weather_info["humidity"]
     message = f"{dt_str} (YAKT) のヤクーツク\n天気: {weather} \n気温: {temperature}℃\n体感温度: {feel_like}℃\n湿度: {humidity}%"
     return message
