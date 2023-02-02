@@ -68,7 +68,7 @@ def get_weather_history(day_diff):
     dt_now = datetime.now(YAKT)
     dt = dt_now + timedelta(day_diff)
     dt_str = dt.strftime("%Y/%m/%d")
-    unix_dt = dt.timestamp()
+    unix_dt = int(dt.timestamp())
     response = requests.get(
         "https://api.openweathermap.org/data/3.0/onecall/timemachine",
         params={
