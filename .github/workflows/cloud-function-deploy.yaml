@@ -15,10 +15,10 @@ jobs:
         with:
           credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
       - uses: 'google-github-actions/setup-gcloud@v1'
-      - name: Deploy Functions
+      - name: Deploy Twitter Functions
         run: |
           gcloud functions deploy yakutsk-bot \
-            --source=./cloud_functions \
+            --source=./twitter \
             --region=us-central1 \
             --entry-point=post_tweet \
             --runtime=python38 \
@@ -30,3 +30,14 @@ jobs:
             --set-env-vars ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }} \
             --set-env-vars WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }}
 
+      - name: Deploy Line Functions
+        run: |
+          gcloud functions deploy yakutsk-line-bot \
+            --source=./line \
+            --region=us-central1 \
+            --entry-point=post_message \
+            --runtime=python38 \
+            --trigger-http \
+            --set-env-vars LINE_CHANNEL_ACCESS_TOKEN=${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }} \
+            --set-env-vars LINE_CHANNEL_SECRET=${{ secrets.LINE_CHANNEL_SECRET}} \
+            --set-env-vars WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }}
