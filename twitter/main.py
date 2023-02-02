@@ -52,3 +52,4 @@ def post_tweet(request):
     message = f"{now} (YAKT) のヤクーツク\n天気: {weather} \n気温: {temperature}℃\n体感温度: {feel_like}℃\n湿度: {humidity}%"
     post_request = client.create_tweet(text=message)
     return post_request.data
+    # return message
