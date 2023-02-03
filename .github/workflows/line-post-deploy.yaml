@@ -1,9 +1,11 @@
-name: Deploy Cloud Functions
+name: Deploy LINE-post bot
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'line_post/**'
 
 jobs:
   deploy:
@@ -17,10 +19,10 @@ jobs:
       - uses: 'google-github-actions/setup-gcloud@v1'
       - name: Deploy Line Functions
         run: |
-          gcloud functions deploy yakutsk-line-reply \
-            --source=./line_reply \
-            --region=us-central1 \
-            --entry-point=reply_message \
+          gcloud functions deploy yakutsk-line-bot \
+            --source=./line_post \
+            --region=asia-northeast2 \
+            --entry-point=post_message \
             --runtime=python38 \
             --trigger-http \
             --set-env-vars LINE_CHANNEL_ACCESS_TOKEN=${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }} \

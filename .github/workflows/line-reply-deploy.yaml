@@ -1,0 +1,30 @@
+name: Deploy LINE-reply bot
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'line_reply/**'
+
+jobs:
+  deploy:
+    name: Deploy Functions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/auth@v1
+        with:
+          credentials_json: "${{ secrets.SERVICE_ACCOUNT_KEY }}"
+      - uses: 'google-github-actions/setup-gcloud@v1'
+      - name: Deploy Line Functions
+        run: |
+          gcloud functions deploy yakutsk-line-reply \
+            --source=./line_reply \
+            --region=asia-northeast2 \
+            --entry-point=reply_message \
+            --runtime=python38 \
+            --trigger-http \
+            --set-env-vars LINE_CHANNEL_ACCESS_TOKEN=${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }} \
+            --set-env-vars LINE_CHANNEL_SECRET=${{ secrets.LINE_CHANNEL_SECRET}} \
+            --set-env-vars WEATHER_API_KEY=${{ secrets.WEATHER_API_KEY }}

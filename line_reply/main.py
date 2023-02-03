@@ -2,16 +2,13 @@ import os
 import requests
 import json
 from datetime import datetime, timedelta, timezone
-import base64, hashlib, hmac
-from flask import abort, jsonify
+import hashlib
+import hmac
+import base64
+from flask import abort
 from linebot import LineBotApi, WebhookParser
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-
-
-# from dotenv import load_dotenv
-
-# load_dotenv(verbose=True)
 
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]

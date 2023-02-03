@@ -2,12 +2,9 @@ import os
 import requests
 import json
 from datetime import datetime, timedelta, timezone
-from linebot import LineBotApi, WebhookHandler
+from linebot import LineBotApi
 from linebot.models import TextSendMessage
 
-# from dotenv import load_dotenv
-
-# load_dotenv(verbose=True)
 
 LINE_CHANNEL_ACCESS_TOKEN = os.environ["LINE_CHANNEL_ACCESS_TOKEN"]
 LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
