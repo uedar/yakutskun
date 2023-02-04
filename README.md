@@ -3,5 +3,5 @@
 ### Twitter 
 https://twitter.com/yakutskun
 
-### Line
+### LINE
 ![qr_code](./M_gainfriends_2dbarcodes_GW.png)
